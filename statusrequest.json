@@ -1,0 +1,18 @@
+{
+    {
+        "id":1,
+        "status":"OPENED"
+    },
+    {
+        "id":2,
+        "status":"DONE"
+    },
+    {
+        "id":3,
+        "status":"PENDING"
+    },
+    {
+        "id":4,
+        "status":"CANCELED"
+    }
+}

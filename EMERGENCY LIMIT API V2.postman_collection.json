@@ -1,0 +1,477 @@
+{
+	"info": {
+		"_postman_id": "bcac8737-5412-4250-9a93-09e0854a4486",
+		"name": "EMERGENCY LIMIT API V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24773253"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Autentication User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"pm.environment.set(\"emergency_limit_api_v2_token\", jsonData.data.token.access_token)"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"admin@cardban.com.br\",\n\t\"password\":\"102030\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/users/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autentication Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const jsonData = pm.response.json()\r",
+									"pm.environment.set(\"emergency_limit_api_v2_token\", jsonData.access_token)"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\" : \"7\",\n  \"client_secret\" : \"L7qtbNnKX3AtyDhR9wOjgALEIQujoXSLCdZfqYIu\",\n  \"grant_type\" : \"client_credentials\",\n  \"scope\" : \"partner\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/oauth/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Emergency Limit",
+			"item": [
+				{
+					"name": "Limit Detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/partner/employees/emergency-limit/detail?document=38370711030",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"partner",
+								"employees",
+								"emergency-limit",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "document",
+									"value": "38370711030"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Limit",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"document\": \"79807622077\",\r\n    \"total\": 10.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/partner/employees/emergency-limit/store",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"partner",
+								"employees",
+								"emergency-limit",
+								"store"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accessions",
+			"item": [
+				{
+					"name": "Request Accession",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_name\": \"Ollé Tecnologia\",\r\n    \"company_document\": \"10998575000107\",\r\n    \"company_responsible_name\": \"Carlos Alexandre\",\r\n    \"company_phone\": \"1938385629\",\r\n    \"company_email\": \"olletecnologia@gmail.com\",\r\n    \"employee_first_name\": \"Tatiane\",\r\n    \"employee_last_name\": \"Rosângela da Costa\",\r\n    \"employee_document\": \"76734472230\",\r\n    \"employee_email\": \"csitecnologia@gmail.com\",\r\n    \"employee_mobile\": \"19991312477\",\r\n    \"status\": \"PENDING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/accessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"accessions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Request Accession",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"company_name\": \"Induscabos Condutores eletricos LTDA \",\r\n    \"company_document\": \"48063416001076\",\r\n    \"company_responsible_name\": \"Junior Alexandre\",\r\n    \"company_phone\": \"1143143270\",\r\n    \"company_email\": \"rh@induscabos.com.br\",\r\n    \"employee_first_name\": \"Samanta\",\r\n    \"employee_last_name\": \"Rosângela da Costa\",\r\n    \"employee_document\": \"22819947832\",\r\n    \"employee_email\": \"samanta@gmail.com\",\r\n    \"employee_mobile\": \"1212212111\",\r\n    \"status\": \"PENDING\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v2/accessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v2",
+										"accessions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.20.0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.0.16"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:50:51 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "POST, GET, OPTIONS, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "86400"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization, X-Requested-With, company, factory"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"code\": 0,\n    \"message\": \"messages.accessions.created\",\n    \"data\": {\n        \"uuid\": \"1983d6ae-f7bc-48af-9c3a-9beaa8b400ba\",\n        \"status\": \"PENDING\",\n        \"company\": {\n            \"id\": null,\n            \"name\": \"Induscabos Condutores eletricos LTDA \",\n            \"responsible_name\": \"Junior Alexandre\",\n            \"document\": \"48063416001076\",\n            \"phone\": \"1143143270\",\n            \"email\": \"rh@induscabos.com.br\"\n        },\n        \"employee\": {\n            \"id\": null,\n            \"first_name\": \"Samanta\",\n            \"last_name\": \"Rosângela da Costa\",\n            \"document\": \"22819947832\",\n            \"mobile\": \"1212212111\",\n            \"email\": \"samanta@gmail.com\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "List Accession",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v2/accessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"accessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Accession",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_name\": \"Ollé Tecnologia\",\r\n    \"company_document\": \"10998575000107\",\r\n    \"company_responsible_name\": \"Carlos Alexandre\",\r\n    \"company_phone\": \"1938385629\",\r\n    \"company_email\": \"olletecnologia@gmail.com\",\r\n    \"employee_first_name\": \"Tatiane\",\r\n    \"employee_last_name\": \"Rosângela da Costa\",\r\n    \"employee_document\": \"76734472230\",\r\n    \"employee_email\": \"csitecnologia@gmail.com\",\r\n    \"employee_mobile\": \"19991312477\",\r\n    \"status\": \"OPENED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v2/accessions/be2b29aa-3773-4a21-977e-36cc471be74a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"accessions",
+								"be2b29aa-3773-4a21-977e-36cc471be74a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Accession by UUID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v2/accessions/be2b29aa-3773-4a21-977e-36cc471be74a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"accessions",
+								"be2b29aa-3773-4a21-977e-36cc471be74a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Accession",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v2/accessions/ed89ad60-46b7-4068-ab8b-2b1994bf8dcc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"accessions",
+								"ed89ad60-46b7-4068-ab8b-2b1994bf8dcc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLimitAvailable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{emergency_limit_api_v2_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v2/partner/employees/emergency-limit/detail?document=95415193936",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v2",
+								"partner",
+								"employees",
+								"emergency-limit",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "document",
+									"value": "95415193936"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
